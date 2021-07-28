@@ -1,25 +1,54 @@
-import logo from './logo.svg';
-import './App.css';
+import {
+  Switch,
+  Route,
+  useHistory
+} from "react-router-dom";
+import Prepare from "./pages/Prepare";
+import ScanCheck from "./pages/Scanning";
+import Plan from "./pages/Plan"
+import Test from "./pages/test"
+import Context, {useWsContext} from "./common/encapsulation/context";
+import {useEffect} from "react";
+import Completed from "./pages/Completed";
 
-function App() {
+function Wrap() {
+
+  const history = useHistory();
+  const {routerPath} = useWsContext();
+
+  useEffect(() => {
+
+    history.push(`/${routerPath}`)
+  }, [routerPath,history])
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Switch>
+        <Route path="/Scanning">
+          <ScanCheck/>
+        </Route>
+        <Route path="/Prepare">
+          <Prepare/>
+        </Route>
+        <Route path="/Plan">
+          <Plan/>
+        </Route>
+        <Route path="/Completed">
+          <Completed/>
+        </Route>
+        <Route path="/Test">
+          <Test/>
+        </Route>
+      </Switch>
     </div>
   );
 }
+
+const App = () => (
+  <Context>
+    <Wrap/>
+  </Context>
+)
+
 
 export default App;

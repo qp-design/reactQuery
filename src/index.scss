@@ -1,0 +1,17 @@
+@import "src/common/style/reset";
+
+@font-face {
+  font-family: din;
+  //src: url(./src/common/style/din.ttf);
+}
+
+body {
+  margin: 0;
+  font-family: din PingFangSC-Medium, PingFang SC, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #000;
+}
+

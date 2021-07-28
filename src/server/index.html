@@ -1,0 +1,31 @@
+<html>
+<head>
+  <title>ws demo</title>
+  <meta charset="utf8">
+</head>
+<body>
+
+</body>
+
+<script>
+  var ws = new WebSocket('ws://localhost:8888');
+  ws.onopen = function () {
+    console.log('client: ws connection is open');
+    ws.send('html send hello');
+  };
+  ws.onmessage = function (e) {
+  };
+  ws.onclose = function (e) {
+    console.log('client: no data', e.data)
+    ws = new WebSocket('ws://localhost:8888');
+  }
+  // window.onbeforeunload = () => {
+  //   ws.onclose()
+  // }
+
+  // setTimeout(() => {
+  //   ws.onclose();
+  // }, 2000)
+</script>
+
+</html>

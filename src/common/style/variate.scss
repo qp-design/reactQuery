@@ -1,0 +1,30 @@
+// 块的背景
+$blockBg: #2B2A30;
+
+// 块的圆角
+$blockRadius: 12px;
+
+// 块的阴影
+$blockShadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.15);
+
+// 默认的实心按钮
+.defaultBtn {
+  min-width: 184px;
+  height: 40px;
+  line-height: 40px;
+  background: linear-gradient(360deg, #205DE8 0%, #1F97E5 100%);
+  border-radius: 20px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+// 默认的空心按钮
+.emptyBtn {
+  min-width: 184px;
+  height: 40px;
+  border-radius: 20px;
+  border: 1px solid #328EF1;
+  background: transparent;
+  color: #328EF1;
+}

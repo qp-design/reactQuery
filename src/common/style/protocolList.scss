@@ -1,0 +1,11 @@
+@import "variate";
+
+.listContent {
+  display: flex;
+  .lPart {
+    flex: 1;
+  }
+  .rPart {
+    width: 200px;
+  }
+}

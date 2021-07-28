@@ -1,0 +1,266 @@
+html {
+  color: #333;
+  /*规定主色调,依据业务场景(非必须)*/
+  background: #000;
+  /*规定主背景,依据业务场景(非必须)*/
+  overflow-y: auto;
+  /*如果有溢出自动形成滚动条*/
+  -webkit-text-size-adjust: 100%;
+  /*不想让iPhone横坚屏切换的时候调节文字*/
+  -ms-text-size-adjust: 100%;
+}
+
+html * { /*所有元素*/
+  outline: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); /*去除移动端开发点击事件灰色背景如a标签*/
+}
+
+body,html{
+  min-height: 100%;
+}
+article,
+aside,
+blockquote,
+body,
+button,
+code,
+dd,
+details,
+div,
+dl,
+dt,
+fieldset,
+figcaption,
+figure,
+footer,
+form,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+header,
+hgroup,
+hr,
+input,
+legend,
+li,
+menu,
+nav,
+ol,
+p,
+pre,
+section,
+td,
+textarea,
+th,
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+input,
+select,
+textarea {
+  font-size: 100%;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+fieldset,
+img {
+  border: none;
+}
+
+address,
+caption,
+cite,
+code,
+dfn,
+em,
+th,
+var {
+  font-style: normal;
+  font-weight: 500;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: 100%;
+  font-weight: 500;
+}
+
+q:after,
+q:before {  /*在<q></q>标签之间的文字两头加上引号*/
+  content: '';
+}
+
+a{
+  text-decoration: none;
+}
+
+/*input*/
+button {
+  border: none;
+}
+
+button,
+html input[type='button'],
+input[type='reset'],
+input[type='submit'] {
+  -webkit-appearance: button;  /*渲染成button的风格*/
+  text-transform: none;
+  outline: none;
+}
+
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+  color: #999;  /*输入框提示语的字体样式*/
+}
+
+input::-webkit-inner-spin-button {/*解决input的type="number"在部分手机端会出现一个小按钮*/
+  -webkit-appearance: none;/*去除系统默认appearance的样式,常用于IOS下移除原生样式*/
+}
+
+input::-webkit-outer-spin-button {/*解决input的type="number"在部分手机端会出现一个小按钮*/
+  -webkit-appearance: none;
+}
+
+textarea {
+  vertical-align: top;
+}
+
+button,
+input {
+  line-height: normal;
+}
+
+select {
+  margin: 0;
+  outline: 0;
+}
+
+input.fixAKeyboard:focus,
+textarea.fixAndroidKeyboard:focus {
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+  -webkit-user-modify: read-write-plaintext-only;
+}
+
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px white inset !important;
+}
+
+button,
+input[type=button],
+input[type=checkbox],
+input[type=reset],
+input[type=submit],
+label {
+  cursor: pointer;
+  user-select: none;
+  -ms-user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+}
+
+input[type=submit] {
+  -webkit-user-modify: read-plaintext-only;
+  -moz-user-modify: read-plaintext-only;
+  -ms-user-modify: read-plaintext-only;
+  -o-user-modify: read-plaintext-only;
+  user-modify: read-plaintext-only;
+}
+
+input[type='search']::-webkit-search-cancel-button,
+input[type='search']::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+input[type='search'] {
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  -webkit-appearance: textfield;
+}
+
+
+/*flex box*/
+.flex {
+  display: flex;
+  /* OLD - Android 4.4- */
+  display: -webkit-box;
+  /* OLD - iOS 6-, Safari 3.1-6 */
+  display: -moz-box;
+  /* OLD - Firefox 19- (buggy but mostly works) */
+  display: -ms-flexbox;
+  /* TWEENER - IE 10 */
+  display: -webkit-flex;
+  /* NEW - Chrome */
+  display: flex;
+  -webkit-box-lines: multiple;
+  -webkit-flex-wrap: wrap;
+  -moz-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  -o-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.justify-between {
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+.justify-center {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.vertical {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box; /*所有元素以border开始计算盒子大小*/
+}
+
+.clearfix:after,
+.clearfix:before {   /*清除浮动*/
+  content: " ";
+  display: table;
+}
+
+.clearfix:after {
+  clear: both;
+}
+
+.fl {
+  float: left;
+}
+
+.fr {
+  float: right;
+}
