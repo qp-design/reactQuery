@@ -1,4 +1,4 @@
-import {Fragment, useEffect, useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import dwv from 'dwv';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, {Thumbs} from 'swiper/core';
