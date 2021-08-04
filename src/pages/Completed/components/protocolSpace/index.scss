@@ -1,0 +1,70 @@
+@import "src/common/style/variate";
+.protocolSpace {
+  width: 935px;
+  height: 659px;
+  background: #2B2A30;
+  box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  float:right;
+  box-sizing: border-box;
+  padding: 28px 30px;
+  .title {
+    height: 31px;
+    line-height: 31px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 28px;
+    h2 {
+      font-size: 20px;
+      font-weight: 500;
+      color: #FFFFFF;
+    }
+    button {
+      width: 119px;
+      height: 31px;
+      background: #1D1C25;
+      border-radius: 16px;
+      text-align: left;
+      img {
+        display: inline-block;
+        vertical-align: top;
+        width: 15px;
+        height: 15px;
+        margin-top: 2px;
+        margin-left: 8px;
+        margin-right: 8px;
+      }
+      span {
+        display: inline-block;
+        vertical-align: top;
+        font-size: 12px;
+        font-weight: 400;
+        color: #6B6B6B;
+      }
+    }
+  }
+  .space {
+    width: 875px;
+    height: 483px;
+    background-color: #000;
+    overflow: scroll;
+    ul {
+      li {
+        display: inline-block;
+        width: 175px;
+        height: 175px;
+      }
+    }
+  }
+  .handle {
+    text-align: center;
+    margin-top: 24px;
+    .next {
+      @extend .defaultBtn;
+      margin-right: 30px;
+    }
+    .present {
+      @extend .emptyBtn;
+    }
+  }
+}

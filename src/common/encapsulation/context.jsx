@@ -15,12 +15,12 @@ const Context = ({ children }) => {
   useEffect(() => {
     let ws = new WebSocket(wsUrl);
     ws.onopen = function (msg){
-      ws.send(msg, 123123)
       sendRef.current = ws.send.bind(this);
     }
     // a = wsRef.current.onopen
     ws.onclose = (e) => {
-      // ws = new WebSocket(wsUrl);
+      console.log(e)
+      ws = new WebSocket(wsUrl);
     }
     ws.onerror = () => {
       console.log("error")

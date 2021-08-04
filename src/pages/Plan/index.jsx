@@ -1,135 +1,19 @@
 import {ReactSortable} from "react-sortablejs";
 import MHeader from "../../common/components/m-header";
-import "./style.scss";
 import {useEffect, useState} from "react";
 import {get_scan_proto} from "../../common/api/control";
 import {Toast} from "antd-mobile";
 import {useWsContext} from "../../common/encapsulation/context";
-import { useSafeImplement} from '../../common/hooks';
-import {beginScan} from "../../common/utils"
-
-
-// const Plan = [
-//   {
-//     id:0,
-//     name: 'IR-SE序列扫描支持T1',
-//     time: '05:20',
-//   },
-//   {
-//     id:1,
-//     name: 'T1加权扫描',
-//     time: '06:20',
-//   },
-//   {
-//     id:2,
-//     name: 'T2加权扫描',
-//     time: '03:20',
-//   },
-//   {
-//     id:3,
-//     name: 'T2-FLAIR扫描',
-//     time: '00:20',
-//   },
-//   {
-//     id:4,
-//     name: 'IR-SE序列扫描支持T1',
-//     time: '05:20',
-//   },
-//   {
-//     id:5,
-//     name: 'T1加权扫描',
-//     time: '06:20',
-//   },
-//   {
-//     id:6,
-//     name: 'T2加权扫描',
-//     time: '03:20',
-//   },
-//   {
-//     id:7,
-//     name: 'T2-FLAIR扫描',
-//     time: '00:20',
-//   },
-//   {
-//     id:8,
-//     name: 'IR-SE序列扫描支持T1',
-//     time: '05:20',
-//   },
-//   {
-//     id:9,
-//     name: 'T1加权扫描',
-//     time: '06:20',
-//   },
-//   {
-//     id:10,
-//     name: 'T2加权扫描',
-//     time: '03:20',
-//   },
-//   {
-//     id:11,
-//     name: 'T2-FLAIR扫描',
-//     time: '00:20',
-//   },
-// ]
-
-// const protocolBlockList = [
-//   {
-//     id:1,
-//     name: '定位扫描1',
-//     time: '04:16'
-//   },
-//   {
-//     id:2,
-//     name: '定位扫描2',
-//     time: '04:16'
-//   },
-//   {
-//     id:3,
-//     name: '定位扫描3',
-//     time: '04:16'
-//   },
-//   {
-//     id:4,
-//     name: '定位扫描4',
-//     time: '04:16'
-//   },
-//   {
-//     id:5,
-//     name: '定位扫描5',
-//     time: '04:16'
-//   },
-//   {
-//     id:6,
-//     name: '定位扫描6',
-//     time: '04:16'
-//   },
-//   {
-//     id:7,
-//     name: '定位扫描7',
-//     time: '04:16'
-//   },
-//   {
-//     id:8,
-//     name: '定位扫描8',
-//     time: '04:16'
-//   },
-//   // {
-//   //   id:9,
-//   //   name: '定位扫描9',
-//   //   time: '04:16'
-//   // },
-//   // {
-//   //   id:10,
-//   //   name: '定位扫描10',
-//   //   time: '04:16'
-//   // },
-// ];
+import {useSafeImplement} from '../../common/hooks';
+import {beginScan, handleTimeNum, handleTimeStr} from "../../common/utils"
+import "./style.scss";
 
 const ProtocolList = () => {
-  const {wsDataSource , setRouterPath,sendRef} = useWsContext();
+  const {wsDataSource, setRouterPath, sendRef} = useWsContext();
   const [protocolList, setProtocolListPre] = useState([]);
   const [protocolBlockState, setProtocolBlockStatePre] = useState([]);
-  const [fix, setFixPre] = useState({})
+  const [fix, setFixPre] = useState({});
+  const [time, setTime] = useState(0);
 
   const setProtocolList = useSafeImplement(setProtocolListPre)
   const setProtocolBlockState = useSafeImplement(setProtocolBlockStatePre)
@@ -139,7 +23,7 @@ const ProtocolList = () => {
 
 
   useEffect(() => {
-    if(wsDataSource?.bodyType) {
+    if (wsDataSource?.bodyType) {
       get_scan_proto({
         bodyType: wsDataSource?.bodyType
       }).then(res => {
@@ -147,9 +31,10 @@ const ProtocolList = () => {
         let lArr = [];
         let rArr = []
         for (let i = 0; i < result.length; i++) {
-          if(result[i].name === "定位扫描") {
+          if (result[i].name === "定位扫描") {
             setFix(result[i])
-          }else {
+            setTime(time + handleTimeStr(result[i].time));
+          } else {
             if (result[i].protoType === "buildin") {
               lArr.push(result[i]);
             } else {
@@ -157,7 +42,6 @@ const ProtocolList = () => {
             }
           }
         }
-        console.log(rArr)
         setProtocolBlockState(lArr)
         setProtocolList(rArr)
       })
@@ -176,12 +60,15 @@ const ProtocolList = () => {
     item.currow = 0;
     arr.push(item);
     setProtocolBlockState(arr);
+    setTime(time + handleTimeStr(item.time));
   }
 
-  const delItem = index => {
+  const delItem = (item, index) => {
+    console.log(item)
     let arr = [...protocolBlockState];
-    arr.splice(index,1)
+    arr.splice(index, 1)
     setProtocolBlockState(arr);
+    setTime(time - handleTimeStr(item.time));
   }
 
   const beginCheck = () => {
@@ -191,20 +78,26 @@ const ProtocolList = () => {
       Toast.fail("未选择任何协议");
       return;
     }
-    // setAllInfo({...allInfo, protocol:protocolBlockState});
     sendRef.current?.(beginScan(wsDataSource?.userid, result))
     setRouterPath("Scanning");
+  }
+  const initProtocol = () => {
+    let arr = protocolBlockState;
+    let timeResult = time;
+    for (let i = 0; i < arr.length; i++) {
+      timeResult -= handleTimeStr(arr[i].time)
+    }
+    setTime(timeResult)
+    setProtocolBlockState([])
   }
 
   return (
     <div className="protocolList">
       <MHeader
-        title-sm="头部-常规"
-        prev
-        loading
+        title-lg={wsDataSource?.bodyTypeCn}
         timer
         timerTitle="剩余总时长"
-        timerNum="00:12:08"
+        timerNum={handleTimeNum(time)}
       />
       <div className="listContent">
         <div className="lPart">
@@ -241,9 +134,10 @@ const ProtocolList = () => {
                     return (
                       <li key={item.id}>
                         <div className="upInfo">
-                          <div className="sort">{index+2}</div>
+                          <div className="sort">{index + 2}</div>
                           {
-                            item.protoType === "buildin" ? null : <img src="/close.png" alt="" className="close" onClick={delItem.bind(null, index)}/>
+                            item.protoType === "buildin" ? null :
+                              <img src="/close.png" alt="" className="close" onClick={delItem.bind(null, item, index)}/>
                           }
                         </div>
                         <div className="content">
@@ -259,7 +153,7 @@ const ProtocolList = () => {
           </div>
           <div className="down">
             <button className="lBtn" onClick={beginCheck}>开始检查</button>
-            <button className="rBtn">恢复默认协议</button>
+            <button className="rBtn" onClick={initProtocol}>恢复默认协议</button>
           </div>
         </div>
         <div className="rPart">

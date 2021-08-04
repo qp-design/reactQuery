@@ -1,0 +1,50 @@
+.protocolMenu {
+  width: 265px;
+  height: 659px;
+  background: #1B1A21;
+  box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  overflow: scroll;
+  float: left;
+  li {
+    height: 60px;
+    line-height: 60px;
+    position: relative;
+    &.active {
+      background: #413F48;
+      box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.3);
+      .line {
+        background-color: transparent;
+      }
+    }
+    span {
+      display: inline-block;
+      min-width: 30px;
+      height: 16px;
+      line-height: 16px;
+      background: #17161D;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: bold;
+      color: #156EFF;
+      text-align: center;
+      margin-left: 15px;
+      margin-right: 10px;
+    }
+    h3 {
+      display: inline-block;
+      font-size: 16px;
+      font-weight: 500;
+      color: #FFFFFF;
+    }
+    .line {
+      width: 235px;
+      height: 1px;
+      background: #29282F;
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      margin-left: -118px;
+    }
+  }
+}

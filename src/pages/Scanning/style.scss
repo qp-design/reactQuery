@@ -52,7 +52,7 @@
     .lPart {
       width: 100%;
       height: 100%;
-      background-color: red;
+      //background-color: red;
       display: none;
       &.active {
         display: block;
@@ -166,6 +166,9 @@
                 }
               }
               .content {
+                width: 100%;
+                margin: 0;
+                height: auto;
                 h4 {
                   font-size: 16px;
                   font-weight: 500;
@@ -336,7 +339,7 @@
             }
           }
           img {
-            display: none;
+            display: none !important;
             width: 10px;
             height: 20px;
             position: absolute;
@@ -385,6 +388,8 @@
             display: flex;
             justify-content: space-between;
             margin-bottom: 20px;
+            height: 31px;
+            line-height: 31px;
             h2 {
               font-size: 20px;
               font-weight: 500;

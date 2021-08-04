@@ -1,0 +1,80 @@
+.imageState {
+  width: 935px;
+  height: 659px;
+  background: #2B2A30;
+  box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  float: right;
+  box-sizing: border-box;
+  padding: 30px;
+  .info {
+    //background-color: #00DF38;
+    height: 31px;
+    line-height: 31px;
+    width: 100%;
+    margin-bottom: 20px;
+    h3 {
+      font-size: 20px;
+      font-weight: 500;
+      color: #FFFFFF;
+      float: left;
+
+    }
+    button {
+      min-width: 133px;
+      height: 31px;
+      line-height: 31px;
+      background: #17161D;
+      border-radius: 16px;
+      border: 1px solid #44434B;
+      text-align: left;
+      float: right;
+      box-sizing: border-box;
+      padding-right: 14px;
+      &.restart {
+        margin-right: 50px;
+        margin-left: 23px;
+      }
+      &.unused {
+        background-color: #212026;
+        border: 1px solid #38363D;
+        span {
+          color: #4D4C51;
+        }
+      }
+      img {
+        width: 25px;
+        height: 25px;
+        display: inline-block;
+        vertical-align: top;
+        margin-top: 2px;
+        margin-left: 2px;
+        margin-right: 14px;
+      }
+      span {
+        display: inline-block;
+        font-size: 14px;
+        color: #FFFFFF;
+        vertical-align: top;
+      }
+    }
+  }
+  .ground {
+    width: 875px;
+    height: 553px;
+    //background-color: gray;
+    overflow: scroll;
+    img {
+      display: block;
+      width: 875px;
+      height: 553px;
+    }
+    .imageGroup {
+      .dcm {
+        display: inline-block;
+        width: 175px;
+        height: 175px;
+      }
+    }
+  }
+}

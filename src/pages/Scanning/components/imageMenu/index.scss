@@ -1,0 +1,93 @@
+.imageMenu {
+  width: 265px;
+  height: 659px;
+  background: #1B1A21;
+  box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  float: left;
+  overflow: hidden;
+  li {
+    box-sizing: border-box;
+    padding: 15px 15px 0 15px;
+    &.unscan {
+      .state {
+        background-color: #232229;
+        div {
+          display: none;
+        }
+        h3 {
+          color: #56565D;
+          font-weight: bold;
+        }
+      }
+    }
+    &.scaned {
+      .state {
+        background: linear-gradient(180deg, #75FF83 0%, #00DF38 100%);
+        div {
+          display: none;
+        }
+      }
+    }
+    &.active {
+      background-color: #413F48;
+      padding-bottom: 16px;
+      .line {
+        display: none;
+      }
+    }
+    .info {
+      margin-bottom: 15px;
+      span {
+        width: 30px;
+        height: 16px;
+        border-radius: 20px;
+        background-color: #000;
+        display: inline-block;
+        text-align: center;
+        font-size: 14px;
+        font-weight: bold;
+        color: #156EFF;
+        margin-right: 10px;
+      }
+      h3 {
+        font-size: 16px;
+        font-weight: 500;
+        color: #FFFFFF;
+        display: inline-block;
+      }
+    }
+    .state {
+      width: 235px;
+      height: 24px;
+      background-color: #232229;
+      border-radius: 4px;
+      position: relative;
+      overflow: hidden;
+      div {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0;
+        height: 24px;
+        background: linear-gradient(180deg, #FFB62B 0%, #FF5A23 100%);;
+      }
+      h3 {
+        font-size: 16px;
+        font-weight: bold;
+        color: #FFFFFF;
+        position: relative;
+        z-index: 1;
+        height: 24px;
+        line-height: 24px;
+        text-align: center;
+      }
+    }
+    .line {
+      width: 235px;
+      height: 1px;
+      background-color: #29282F;
+      margin-top: 15px;
+    }
+  }
+}

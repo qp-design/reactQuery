@@ -4,20 +4,18 @@ import MHeader from "../../common/components/m-header";
 import GenderJsx from "./components/gender";
 import config from "./formConfig";
 import {get_position_list, register_patient} from "../../common/api/control";
-// import {useHistory} from "react-router-dom";
 import "./style.scss";
 import { useSafeImplement} from '../../common/hooks';
 import {useWsContext} from "../../common/encapsulation/context";
+import {confirmInfo} from "../../common/utils";
 
 const Prepare = () => {
-  // const isMounted = useMountedRef();
-  // let history = useHistory();
   const [formConfig, setFormConfig] = useState(config);
   const [partNum, setPartNum] = useState(0);
   const [partName, setPartName] = useState("");
   const [partArr, setPartArrPre] = useState([]);
   const [partNameCn, setPartNameCn] = useState("");
-  const {allInfo, setAllInfo, setRouterPath} = useWsContext();
+  const {sendRef} = useWsContext();
 
   const setPartArr = useSafeImplement(setPartArrPre)
   const formRef = useRef({sex: "male"})
@@ -33,7 +31,6 @@ const Prepare = () => {
     setPartNum(selectNum)
     partArr.forEach(el => {
       if (el.id === selectNum) {
-        console.log(el)
         setPartName(el.name);
         setPartNameCn(el.name_cn);
       }
@@ -88,8 +85,7 @@ const Prepare = () => {
       }
       register_patient(formData).then(res => {
         if (res.data.code === 200) {
-          setAllInfo({...allInfo, uid: res.data.data.id, partName, partNameCn})
-          setRouterPath('Plan');
+          sendRef.current?.(confirmInfo(res.data.data.id))
         }
       })
     } else {
@@ -100,7 +96,6 @@ const Prepare = () => {
     <div className="choosePart">
       <MHeader
         title-lg={"磁共振成像系统"}
-        prev
       />
       <div className="formWrap">
         <h2>填写患者信息</h2>

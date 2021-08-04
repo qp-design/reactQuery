@@ -1,13 +1,13 @@
 import "./style.scss"
 import MHeader from "../../common/components/m-header";
-import {useEffect, useState} from "react";
-import ScanImage from "./components/scanImage";
+import { useState} from "react";
 import ScanList from "./components/scanList";
 import {handleTimeStr, handleTimeNum} from "../../common/utils";
 import {useWsContext} from "../../common/encapsulation/context";
+import ScanImage from "./components/scanImage";
 
 const ScanCheck = () => {
-  const [tabIndex, setTabIndex] = useState("2");
+  const [tabIndex, setTabIndex] = useState("1");
   const {wsDataSource} = useWsContext();
 
   const changeTab = (e) => {
@@ -39,16 +39,12 @@ const ScanCheck = () => {
       if(arr[i].state ===5) {
         process+=handleTimeStr(arr[i].time)
       }else if(arr[i].state ===2|| arr[i].state ===3) {
-        process+=handleTimeStr(arr[i].time)*(arr[i].currow/100)
+        process+=handleTimeStr(arr[i].time)*(arr[i].currow/arr[i].totalrow)
       }
     }
     result = (process/all)* 100
     return result
   }
-
-  // calProcess()
-
-
 
   return (
     <div className="scanCheck">
@@ -66,12 +62,9 @@ const ScanCheck = () => {
         </ul>
       </MHeader>
       <div className="content">
-        <div className={`lPart ${"1" === tabIndex ? "active" : ""}`}>
-          <ScanList/>
-        </div>
-        <div className={`rPart ${"2" === tabIndex ? "active" : ""}`}>
-          <ScanImage/>
-        </div>
+        {
+          "1" === tabIndex ? <ScanList/> : <ScanImage/>
+        }
       </div>
     </div>
   )

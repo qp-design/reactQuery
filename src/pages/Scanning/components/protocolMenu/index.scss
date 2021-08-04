@@ -1,0 +1,44 @@
+.ProtocolMenu {
+  width: 362px;
+  background-color: #17161D;
+  overflow: scroll;
+  ul {
+    li {
+      width: 362px;
+      height: 73px;
+      box-sizing: border-box;
+      padding: 28px 20px;
+      display: flex;
+      justify-content: space-between;
+      &:nth-child(1n) {
+        background-color: #17161D;
+      }
+      &:nth-child(2n) {
+        background-color: #1D1C25;
+      }
+      h3 {
+        font-size: 15px;
+        font-weight: 500;
+        color: #FFFFFF;
+        float: left;
+      }
+      .info {
+        span {
+          font-size: 16px;
+          font-weight: bold;
+          color: #929292;
+          display: inline-block;
+          vertical-align: top;
+          margin-right: 20px;
+          margin-top: 2px;
+        }
+        img {
+          width: 20px;
+          height: 20px;
+          display: inline-block;
+          vertical-align: top;
+        }
+      }
+    }
+  }
+}

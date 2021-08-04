@@ -1,9 +1,10 @@
 import {useHistory} from "react-router-dom";
-import {Icon} from 'antd-mobile';
+import {Icon, Modal} from 'antd-mobile';
 import {stopScan} from "../../utils";
 import {useWsContext} from "../../encapsulation/context";
-import {completed} from "../../api/control"
 import "./style.scss"
+
+const alert = Modal.alert;
 
 const MHeader = (props) => {
   let history = useHistory();
@@ -13,11 +14,16 @@ const MHeader = (props) => {
     history.goBack();
   }
   const stopScanFunc = () => {
-    sendRef.current?.(stopScan(props.uid));
-    // completed().then(res => {
-    //   console.log(res);
-    // })
-    setRouterPath('Prepare');
+    alert('停止扫描', '协议尚未完成扫描，此时扫描关闭将会丢失本次扫描数据', [
+      { text: '取消', style: 'default' },
+      { text: '关闭扫描',
+        onPress: () => {
+          sendRef.current?.(stopScan(props.uid));
+          setRouterPath('Prepare');
+        }
+      },
+    ]);
+
   }
   return (
     <>
