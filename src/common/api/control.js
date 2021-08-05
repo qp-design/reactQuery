@@ -1,4 +1,5 @@
 import axiosWrap from "../http";
+// import {paramsList} from "swiper/angular/angular/src/utils/params-list";
 
 // 患者信息设定
 export const register_patient = data => {
@@ -24,3 +25,9 @@ export const completed = params => {
   return axiosWrap.post("/api/scan/completed", params)
 }
 
+// 获取tag
+export const get_tag = (url) => {
+  return axiosWrap.get(url, {
+    responseType: 'arraybuffer'
+  })
+}

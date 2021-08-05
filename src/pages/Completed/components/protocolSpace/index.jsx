@@ -1,20 +1,46 @@
-import {useContext, useState} from "react";
+import {useContext, useEffect, useState} from "react";
+import { Toast} from 'antd-mobile';
 import {completedContext} from "../../index";
 import {useWsContext} from "../../../../common/encapsulation/context";
 import Analysis from "../../../Scanning/components/analysis";
 import DcmDetail from "../dcmDetail";
-import "./index.scss";
 import {completed} from "../../../../common/api/control";
+import "./index.scss";
 
 const ProtocolSpace = () => {
   const {wsDataSource} = useWsContext();
   const {tabIndex} = useContext(completedContext);
   const [dcmShow, setDcmShow] = useState(false);
   const [url, setUrl] = useState("");
+  const [urlIndex, setUrlIndex] = useState("");
+  const [maxLength, setMaxLength] = useState(0)
 
-  const handleDcm = item => {
+  useEffect(() => {
+    setMaxLength(wsDataSource?.scanInfo?.[tabIndex]?.url.length);
+  }, [tabIndex])
+
+  const handleDcm = (item, index) => {
     setDcmShow(true);
-    setUrl(item)
+    setUrlIndex(index);
+    setUrl(item);
+  }
+
+  const changeDcm = (val) => {
+    if(val === "prev") {
+      if(urlIndex-1> -1) {
+        setUrlIndex(urlIndex-1)
+        setUrl(wsDataSource?.scanInfo?.[tabIndex]?.url?.[urlIndex-1]);
+      }else {
+        Toast.success("已经是第一张了", 1.2);
+      }
+    }else if(val === "next") {
+      if(urlIndex+1< maxLength) {
+        setUrlIndex(urlIndex+1)
+        setUrl(wsDataSource?.scanInfo?.[tabIndex]?.url?.[urlIndex+1]);
+      }else {
+        Toast.success("已经是最后一张了", 1.2);
+      }
+    }
   }
 
   const next = item => {
@@ -44,7 +70,7 @@ const ProtocolSpace = () => {
                   key={item}
                   url={item}
                   no={index}
-                  clk={handleDcm.bind(null, item)}
+                  clk={handleDcm.bind(null, item, index)}
                 />
               )
             })
@@ -55,11 +81,15 @@ const ProtocolSpace = () => {
         <button className="next" onClick={next}>检查下一个患者</button>
         <button className="present">继续检查当前患者</button>
       </div>
-      <DcmDetail
-        url={url}
-        dcmShow={dcmShow}
-        setDcmShow={setDcmShow}
-      />
+      {
+        dcmShow?<DcmDetail
+          url={url}
+          dcmShow={dcmShow}
+          setDcmShow={setDcmShow}
+          changeDcm = {changeDcm}
+        />: null
+      }
+
     </div>
   )
 }

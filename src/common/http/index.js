@@ -23,25 +23,17 @@ axiosWrap.interceptors.request.use(function (config){
 
 })
 
-axiosWrap.interceptors.response.use((response) => {
-  if (Reflect.has(response.data, 'code')) {
-    // if ([401, 403].includes(response.data.code)) {
-    //   Toast.fail(response.data.msg, 3, () => {
-    //     if (response.data.data && response.data.data.login_url) {
-    //       window.top.location.href = decodeURIComponent(response.data.data.login_url)
-    //     }
-    //   });
-    //   return Promise.reject()
-    // }
-    if(response.data.code !== 200) {
-      for(const key in response.data.data) {
-        if(response.data.data.hasOwnProperty(key)) {
-          Toast.fail(response.data.data[key]);
-        }
-      }
-      return Promise.reject()
-    }
-    return response;
-  }
-});
+// axiosWrap.interceptors.response.use((response) => {
+//   // if (Reflect.has(response.data, 'code')) {
+//   //   // if(response.data.code !== 200) {
+//   //   //   for(const key in response.data.data) {
+//   //   //     if(response.data.data.hasOwnProperty(key)) {
+//   //   //       Toast.fail(response.data.data[key]);
+//   //   //     }
+//   //   //   }
+//   //   //   return Promise.reject()
+//   //   // }
+//   //   return response;
+//   // }
+// });
 export default axiosWrap

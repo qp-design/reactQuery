@@ -3,7 +3,6 @@ import {useEffect} from "react";
 
 const Analysis = ({url, no, clk}) => {
   useEffect(() => {
-    console.log(123)
     dwv.gui.getElement = dwv.gui.base.getElement;
     const app = new dwv.App();
     app.init({
