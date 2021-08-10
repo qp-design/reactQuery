@@ -1,9 +1,13 @@
 import {useEffect, useContext} from "react";
-import { ReactSortable } from "react-sortablejs";
+import {ReactSortable} from "react-sortablejs";
+import {Modal} from "antd-mobile";
 import {useWsContext} from "../../../../common/encapsulation/context";
 import {protocolContext} from "../scanList";
-import "./index.scss";
 import {delProtocol, handleSingleRest} from "../../../../common/utils";
+import "./index.scss";
+
+const alert = Modal.alert;
+
 const ProtocolState = () => {
   const {wsDataSource, sendRef} = useWsContext();
   const {waitList, setWaitList} = useContext(protocolContext)
@@ -11,9 +15,9 @@ const ProtocolState = () => {
   useEffect(() => {
     let arr = [];
     let wsArr = wsDataSource?.scanInfo;
-    if(wsArr) {
-      for (let i=0; i<wsArr.length; i++) {
-        if(wsArr[i].state === 1) {
+    if (wsArr) {
+      for (let i = 0; i < wsArr.length; i++) {
+        if (wsArr[i].state === 1) {
           arr.push(wsArr[i])
         }
       }
@@ -23,9 +27,17 @@ const ProtocolState = () => {
   }, [wsDataSource?.scanInfo])
 
   const del = item => {
-    delete item.chosen
-    console.log(item);
-    sendRef.current?.(delProtocol(wsDataSource?.userid, item))
+    // console.log(item);
+    alert("删除", `确认删除${item.name}吗?`,[
+      { text: '取消'},
+      {
+        text: '删除',
+        onPress: () => {
+          delete item.chosen
+          sendRef.current?.(delProtocol(wsDataSource?.userid, item))
+        }
+      },
+    ])
   }
 
   const dragEnd = (e) => {
@@ -72,7 +84,7 @@ const ProtocolState = () => {
                         <h3>{item.name}</h3>
                         <div className="processWrap">
                           <div className="number">{handleSingleRest(item.time, item.currow)}</div>
-                          <div className="process" style={{width: `${(item.currow/item.totalrow)*100}%`}}> </div>
+                          <div className="process" style={{width: `${(item.currow / item.totalrow) * 100}%`}}></div>
                         </div>
                       </div>
                     </li>
@@ -89,15 +101,15 @@ const ProtocolState = () => {
               waitList?.map((item, index) => {
                 return (
                   <li className="unscan" key={index}>
-                  <div className="upInfo">
-                    <span>{item.sequenceNo}</span>
-                    <img src="/close.png" alt="" onClick={del.bind(null, item)}/>
-                  </div>
-                  <div className="downInfo">
-                    <h3>{item.name}</h3>
-                    <div className="processWrap">未扫描</div>
-                  </div>
-                </li>
+                    <div className="upInfo">
+                      <span>{item.sequenceNo}</span>
+                      <img src="/close.png" alt="" onClick={del.bind(null, item)}/>
+                    </div>
+                    <div className="downInfo">
+                      <h3>{item.name}</h3>
+                      <div className="processWrap">未扫描</div>
+                    </div>
+                  </li>
                 )
               })
             }

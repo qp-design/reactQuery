@@ -2,9 +2,11 @@ import dwv from 'dwv';
 import {useEffect, useState} from "react";
 import {get_tag} from "../../../../common/api/control";
 import "./index.scss";
+import Tip from "../tip";
 
 const DcmDetail = ({url, dcmShow, setDcmShow, changeDcm}) => {
   const [info, setInfo] = useState(null);
+  const [tip, setTip] = useState(false);
 
   useEffect(() => {
     init();
@@ -15,6 +17,7 @@ const DcmDetail = ({url, dcmShow, setDcmShow, changeDcm}) => {
       const rawTags = dicomParser.getRawDicomElements();
       setInfo(rawTags)
     })
+    checkTip();
   }, [url]);
 
   const handleDcmDetail = () => {
@@ -22,7 +25,6 @@ const DcmDetail = ({url, dcmShow, setDcmShow, changeDcm}) => {
   }
 
   const analysis = (url) => {
-    console.log(">>>>>>>>>>",url)
     dwv.gui.getElement = dwv.gui.base.getElement;
     const app = new dwv.App();
     app.init({
@@ -49,6 +51,14 @@ const DcmDetail = ({url, dcmShow, setDcmShow, changeDcm}) => {
   const switchDcm = (val, e) => {
     e.stopPropagation()
     changeDcm(val)
+  }
+
+  const checkTip = () => {
+    const result = localStorage.getItem("tip");
+    if(!result) {
+      setTip(true);
+      localStorage.setItem("tip", "true");
+    }
   }
 
   return (
@@ -94,10 +104,11 @@ const DcmDetail = ({url, dcmShow, setDcmShow, changeDcm}) => {
           </div>
           <img src="/left.png" alt="" className="prev" onClick={switchDcm.bind(null, "prev")}/>
           <img src="/right.png" alt="" className="next" onClick={switchDcm.bind(null, "next")}/>
-          {/*<button className="prev" onClick={switchDcm.bind(null, "prev")}>prev</button>*/}
-          {/*<button className="prev" onClick={switchDcm.bind(null, "next")}>next</button>*/}
         </div>
         : null}
+      {
+        tip?<Tip setTip = {setTip}/>:null
+      }
     </>
 
   )

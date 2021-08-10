@@ -14,7 +14,6 @@ const Prepare = () => {
   const [partNum, setPartNum] = useState(0);
   const [partName, setPartName] = useState("");
   const [partArr, setPartArrPre] = useState([]);
-  const [partNameCn, setPartNameCn] = useState("");
   const {sendRef} = useWsContext();
 
   const setPartArr = useSafeImplement(setPartArrPre)
@@ -32,7 +31,6 @@ const Prepare = () => {
     partArr.forEach(el => {
       if (el.id === selectNum) {
         setPartName(el.name);
-        setPartNameCn(el.name_cn);
       }
     })
   }
@@ -51,6 +49,7 @@ const Prepare = () => {
       defaultValue: value
       // error: require && validator(value) ? '' : item.message
     }
+    console.log(">>>>>>>>>>>", value, formConfig[1])
     setFormConfig([...formConfig])
   }
 
@@ -60,7 +59,6 @@ const Prepare = () => {
     for (let i = 0; i < formConfig.length; i++) {
       const {require, validator, name} = formConfig[i]
       if (!require) continue;
-
       if (require && validator(result[name] || formConfig[i].defaultValue)) {
         continue;
       }
@@ -83,6 +81,7 @@ const Prepare = () => {
         let name = i.name
         formData.append(name, result[name] || i.defaultValue)
       }
+
       register_patient(formData).then(res => {
         if (res.data.code === 200) {
           sendRef.current?.(confirmInfo(res.data.data.id))

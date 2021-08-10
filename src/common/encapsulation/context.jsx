@@ -7,7 +7,7 @@ EncapsulationContext.displayName = 'wsContent';
 const Context = ({ children }) => {
   const [wsDataSource, setWsData] = useState(null);
   const [routerPath, setRouterPath] = useState(null);
-  const [allInfo, setAllInfo] = useState(null);
+  const [formValue, setFormValue] = useState(null);
   const [result, setResult] = useState([]);
   // const [sendMsg, setSendMsg] = useState(null);
   const sendRef = useRef(null);
@@ -41,8 +41,8 @@ const Context = ({ children }) => {
       wsDataSource,
       routerPath,
       setRouterPath,
-      allInfo,
-      setAllInfo,
+      formValue,
+      setFormValue,
       sendRef,
       result,
       setResult

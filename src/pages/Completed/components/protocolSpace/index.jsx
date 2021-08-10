@@ -8,7 +8,7 @@ import {completed} from "../../../../common/api/control";
 import "./index.scss";
 
 const ProtocolSpace = () => {
-  const {wsDataSource} = useWsContext();
+  const {wsDataSource, setFormValue, setRouterPath} = useWsContext();
   const {tabIndex} = useContext(completedContext);
   const [dcmShow, setDcmShow] = useState(false);
   const [url, setUrl] = useState("");
@@ -43,13 +43,23 @@ const ProtocolSpace = () => {
     }
   }
 
-  const next = item => {
-    console.log(item)
+  const next = () => {
     completed().then(res => {
       console.log(res);
     }).catch(err => {
       throw new Error(err);
     })
+    setFormValue(null);
+    setRouterPath('Prepare');
+  }
+
+  const present = () => {
+    completed().then(res => {
+      console.log(res);
+    }).catch(err => {
+      throw new Error(err);
+    })
+    setRouterPath('Prepare');
   }
 
   return (
@@ -79,7 +89,7 @@ const ProtocolSpace = () => {
       </div>
       <div className="handle">
         <button className="next" onClick={next}>检查下一个患者</button>
-        <button className="present">继续检查当前患者</button>
+        <button className="present" onClick={present}>继续检查当前患者</button>
       </div>
       {
         dcmShow?<DcmDetail
