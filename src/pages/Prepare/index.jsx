@@ -8,7 +8,6 @@ import "./style.scss";
 import { useSafeImplement} from '../../common/hooks';
 import {useWsContext} from "../../common/encapsulation/context";
 import {confirmInfo} from "../../common/utils";
-
 const Prepare = () => {
   const [formConfig, setFormConfig] = useState(config);
   const [partNum, setPartNum] = useState(0);
@@ -18,7 +17,6 @@ const Prepare = () => {
 
   const setPartArr = useSafeImplement(setPartArrPre)
   const formRef = useRef({sex: "male"})
-
 
   useEffect(() => {
     get_position_list().then(res => {
@@ -37,20 +35,17 @@ const Prepare = () => {
 
   const onChange = (value, item, index) => {
     const {name, require, validator} = item;
-    // e.persist()
     formRef.current[name] = value;
-
     if (require && validator(value) === !item.isError) {
       return;
     }
-    formConfig[index] = {
-      ...formConfig[index],
+    const getFormConfig = Object.assign([], formConfig)
+
+    getFormConfig[index] = {
+      ...getFormConfig[index],
       isError: !(require && validator(value)),
-      defaultValue: value
-      // error: require && validator(value) ? '' : item.message
     }
-    console.log(">>>>>>>>>>>", value, formConfig[1])
-    setFormConfig([...formConfig])
+    setFormConfig(getFormConfig)
   }
 
   const submit = () => {
@@ -119,7 +114,7 @@ const Prepare = () => {
                           {item.isError ? <span>{item.message}</span> : null}
                         </>
                         : <GenderJsx
-                          sex={item.defaultValue}
+                          sex={formRef.current[item.name] || item.defaultValue}
                           index={index}
                           item={item}
                           changeGender={onChange}

@@ -57,7 +57,7 @@ const config = [
     type: "slot",
     name: "sex",
     label: "性别",
-    defaultValue: 'male'
+    defaultValue: 'male',
   },
 ];
 
