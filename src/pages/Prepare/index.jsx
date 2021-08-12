@@ -13,10 +13,22 @@ const Prepare = () => {
   const [partNum, setPartNum] = useState(0);
   const [partName, setPartName] = useState("");
   const [partArr, setPartArrPre] = useState([]);
-  const {sendRef} = useWsContext();
+  const {sendRef, setFormValue, formValue} = useWsContext();
 
   const setPartArr = useSafeImplement(setPartArrPre)
   const formRef = useRef({sex: "male"})
+
+  useEffect(() => {
+    if(formValue) {
+      let copy = formConfig.map(item => {
+        console.log(formValue[item.name])
+        item.defaultValue = formValue[item.name]
+        return item
+      })
+      formRef.current = formValue
+      setFormConfig(copy)
+    }
+  },[])
 
   useEffect(() => {
     get_position_list().then(res => {
@@ -46,11 +58,14 @@ const Prepare = () => {
       isError: !(require && validator(value)),
     }
     setFormConfig(getFormConfig)
+    console.log(config)
   }
 
   const submit = () => {
     const result = formRef.current;
+    console.log(result)
     let isError = false
+    const getFormConfig = Object.assign([], formConfig)
     for (let i = 0; i < formConfig.length; i++) {
       const {require, validator, name} = formConfig[i]
       if (!require) continue;
@@ -59,8 +74,8 @@ const Prepare = () => {
       }
 
       isError = true
-      formConfig[i] = {
-        ...formConfig[i],
+      getFormConfig[i] = {
+        ...getFormConfig[i],
         isError: true,
       }
     }
@@ -76,20 +91,23 @@ const Prepare = () => {
         let name = i.name
         formData.append(name, result[name] || i.defaultValue)
       }
-
+      console.log("result", result)
+      setFormValue(result);
       register_patient(formData).then(res => {
         if (res.data.code === 200) {
           sendRef.current?.(confirmInfo(res.data.data.id))
         }
       })
+
     } else {
-      isError && setFormConfig([...formConfig])
+      isError && setFormConfig(getFormConfig)
     }
   }
   return (
     <div className="choosePart">
       <MHeader
         title-lg={"磁共振成像系统"}
+        prev
       />
       <div className="formWrap">
         <h2>填写患者信息</h2>

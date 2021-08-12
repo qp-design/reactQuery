@@ -1,1 +1,1 @@
-export const wsUrl = "ws://192.168.101.163:8000/api/ws/scan";
+export const wsUrl = "ws://192.168.106.142:8000/api/ws/scan";

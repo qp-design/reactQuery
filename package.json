@@ -2,7 +2,7 @@
   "name": "mri",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://192.168.101.163:8000",
+  "proxy": "http://192.168.106.142:8000",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",

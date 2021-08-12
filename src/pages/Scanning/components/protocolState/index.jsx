@@ -3,7 +3,7 @@ import {ReactSortable} from "react-sortablejs";
 import {Modal} from "antd-mobile";
 import {useWsContext} from "../../../../common/encapsulation/context";
 import {protocolContext} from "../scanList";
-import {delProtocol, handleSingleRest} from "../../../../common/utils";
+import {delProtocol, handleSingleRest, sortProtocol} from "../../../../common/utils";
 import "./index.scss";
 
 const alert = Modal.alert;
@@ -40,8 +40,9 @@ const ProtocolState = () => {
     ])
   }
 
-  const dragEnd = (e) => {
+  const dragEnd = () => {
     console.log(waitList);
+    sendRef.current?.(sortProtocol(wsDataSource?.userid, waitList))
   }
 
   return (

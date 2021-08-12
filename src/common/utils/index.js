@@ -65,6 +65,16 @@ export const delProtocol = (userId, chooseItem) => {
   return JSON.stringify(obj);
 }
 
+// 调整顺序
+export const sortProtocol = (userId, arr) => {
+  let obj = {
+    "action": "change",
+    "userid": userId,
+    "xprList": arr
+  };
+  return JSON.stringify(obj);
+}
+
 
 export const handleTimeStr = str => {
   if (!str) {

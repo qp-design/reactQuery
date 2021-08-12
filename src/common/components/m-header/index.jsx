@@ -7,10 +7,11 @@ import "./style.scss"
 const alert = Modal.alert;
 
 const MHeader = (props) => {
-  let history = useHistory();
   const {sendRef, setFormValue, setRouterPath} = useWsContext();
   const goPrev = () => {
-    history.goBack();
+    if(window.AJSInterface) {
+      window.AJSInterface.finishView();
+    }
   }
   const stopScanFunc = () => {
     alert('停止扫描', '协议尚未完成扫描，此时扫描关闭将会丢失本次扫描数据', [
@@ -19,7 +20,7 @@ const MHeader = (props) => {
         text: '关闭扫描',
         onPress: () => {
           sendRef.current?.(stopScan(props.uid));
-          // setFormValue(null);
+          setFormValue(null);
           setRouterPath('Prepare');
         }
       },
