@@ -2,7 +2,6 @@
   "name": "mri",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://192.168.106.142:8000",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
@@ -22,6 +21,7 @@
     "sass-loader": "^12.1.0",
     "sortablejs": "^1.14.0",
     "swiper": "^6.7.5",
+    "vconsole": "^3.9.1",
     "web-vitals": "^1.0.1",
     "ws": "^7.5.1"
   },

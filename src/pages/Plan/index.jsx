@@ -63,11 +63,11 @@ const ProtocolList = () => {
     setTime(time + handleTimeStr(item.time));
   }
 
-  const delItem = (item, index) => {
-    console.log(item)
+  const delItem = (item, index, event) => {
+    event.stopPropagation()
     let arr = [...protocolBlockState];
     arr.splice(index, 1)
-    setProtocolBlockState(arr);
+    setProtocolBlockState([...arr]);
     setTime(time - handleTimeStr(item.time));
   }
 
@@ -128,6 +128,8 @@ const ProtocolList = () => {
                 dragClass='chosen-class'
                 ghostClass='chosen-class'
                 chosenClass='chosen-class'
+                // delay={5000}
+                // handle={".aaa"}
               >
                 {
                   protocolBlockState.map((item, index) => {
@@ -137,7 +139,7 @@ const ProtocolList = () => {
                           <div className="sort">{index + 2}</div>
                           {
                             item.protoType === "buildin" ? null :
-                              <img src="/close.png" alt="" className="close" onClick={delItem.bind(null, item, index)}/>
+                              <img src="/close.png" alt="" className="close" onTouchEnd={delItem.bind(null, item, index)}/>
                           }
                         </div>
                         <div className="content">

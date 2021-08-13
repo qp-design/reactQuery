@@ -1,11 +1,12 @@
 import axios from "axios";
 import { Toast } from 'antd-mobile';
 const axiosWrap = axios.create({
-  baseURL: '',
+  baseURL: 'http://192.168.101.163:8000',
   timeout: 60000,
   headers: {
     'Content-Type': 'application/json'
   },
+  Credentials: true
 })
 
 axiosWrap.interceptors.request.use(function (config){

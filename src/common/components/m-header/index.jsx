@@ -1,4 +1,3 @@
-import {useHistory} from "react-router-dom";
 import {Icon, Modal} from 'antd-mobile';
 import {stopScan} from "../../utils";
 import {useWsContext} from "../../encapsulation/context";

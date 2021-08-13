@@ -26,7 +26,8 @@ const ProtocolState = () => {
 
   }, [wsDataSource?.scanInfo])
 
-  const del = item => {
+  const del = (item, event) => {
+    event.stopPropagation();
     // console.log(item);
     alert("删除", `确认删除${item.name}吗?`,[
       { text: '取消'},
@@ -104,7 +105,7 @@ const ProtocolState = () => {
                   <li className="unscan" key={index}>
                     <div className="upInfo">
                       <span>{item.sequenceNo}</span>
-                      <img src="/close.png" alt="" onClick={del.bind(null, item)}/>
+                      <img src="/close.png" alt="" onTouchEnd={del.bind(null, item)}/>
                     </div>
                     <div className="downInfo">
                       <h3>{item.name}</h3>

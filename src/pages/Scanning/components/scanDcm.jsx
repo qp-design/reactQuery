@@ -2,6 +2,7 @@ import Analysis from "./analysis";
 
 
 export default function ScanDcm({dcmArr}) {
+  console.log(dcmArr)
   return (
     <ul className="imageGroup" id={"dcmWrap"}>
       {

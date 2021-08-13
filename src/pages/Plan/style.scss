@@ -85,6 +85,7 @@
             box-sizing: border-box;
             padding: 10px 15px;
             margin-bottom: 20px;
+            pointer-events: auto;
             &:not(:nth-child(3n)) {
               margin-right: 24px;
             }
