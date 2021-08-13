@@ -1,5 +1,10 @@
 const {override, fixBabelImports, addPostcssPlugins} = require('customize-cra');
 
+/* 把大包的build文件夹名称改成prod-bigscreen-web*/
+const path = require('path')
+const paths = require('react-scripts/config/paths')
+paths.appBuild = path.join(path.dirname(paths.appBuild), 'dist')
+
 module.exports = override(
   fixBabelImports('import', {
     libraryName: 'antd-mobile',
